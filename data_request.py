@@ -1,34 +1,25 @@
-
-
 import requests
-import time
 
-STOCK_LIST = ["AAPL","MSFT","GOOGL","AMZN","META","TSLA","NVDA","NFLX","AMD","INTC","ORCL","IBM","JPM","BAC","GS","V","MA","KO","PEP","MCD","NKE"]
-API_KEY = "LVEW5D8G2Z97836S"
+class Stock_api:
+    def __init__(self, stock_tag):
+        self.stock_tag = stock_tag
+        self.base_url = "https://api.finazon.io/latest/finazon/us_stocks_essential/price"
+        self.api_key = "b6d10dd6b57645cc8ddfd573ebb24005kv"
 
-results = []
+    def get_stock_price(self):
+        try:
+            response = requests.get(
+                self.base_url,
+                params={"ticker": self.stock_tag, "apikey": self.api_key}
+            )
+            data = response.json()
 
-for stock in STOCK_LIST:
-    response = requests.get(
-        "https://www.alphavantage.co/query",
-        params={
-            "function": "GLOBAL_QUOTE",
-            "symbol": stock,
-            "apikey": API_KEY
-        }
-    )
-
-    data = response.json()
-
-    if "Global Quote" in data and data["Global Quote"]:
-        price = float(data["Global Quote"]["05. price"])
-        results.append({"symbol": stock, "price": price})
-        print(f"{stock}: ${price}")
-    else:
-        print(f"{stock}: API error")
-
-    time.sleep(12) 
-
-print("\nFinal list:")
-print(results)
-
+            # Check if 'p' exists
+            if "p" in data:
+                return float(data["p"])
+            else:
+                print(f"Warning: 'p' not found for {self.stock_tag}: {data}")
+                return 0.0
+        except Exception as e:
+            print(f"Error fetching {self.stock_tag}: {e}")
+            return 0.0

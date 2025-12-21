@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock Tracker</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <h1>Stock Tracker</h1>
+</header>
+
+<div class="stocks">
+    <div id="AAPL"><h1>AAPL</h1><p class="price">Loading...</p></div>
+    <div id="MSFT"><h1>MSFT</h1><p class="price">Loading...</p></div>
+    <div id="GOOGL"><h1>GOOGL</h1><p class="price">Loading...</p></div>
+    <div id="AMZN"><h1>AMZN</h1><p class="price">Loading...</p></div>
+    <div id="TSLA"><h1>TSLA</h1><p class="price">Loading...</p></div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
